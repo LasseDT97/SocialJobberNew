@@ -46,7 +46,17 @@ const AddNewJobScreen = ({ navigation }) => {
             <Input placeholder='Jobtitel' value={title} onChangeText={text => setTitle(text)} />
             <Input placeholder='Beskrivelse' value={desc} onChangeText={text => setDesc(text)} />
             <Input placeholder='Adresse' value={address} onChangeText={text => setAddress(text)} />
-            <DatePicker style={{ width: 320, margin: 5, textColor: "black"}} placeholder="yyyy-MM-dd" date={date} onDateChange={setDate}/>
+            <DatePicker
+                style={styles.datePicker}
+                mode="date"
+                format="MM-DD-YYYY"
+                minDate="01-01-2020"
+
+                confirmBtnText="Vælg dato"
+                cancelBtnText="Luk ned"
+                placeholder="Vælg dato"
+                date={date}
+                onDateChange={setDate}/>
             <Input placeholder='Antal timer' value={hours} onChangeText={number => setHours(number)} onSubmitEditing={createJob} />
             <TouchableOpacity>
                 <Button onPress={createJob} title={"Opret nyt job"} style={styles.button}/>
@@ -81,6 +91,11 @@ const styles = StyleSheet.create({
             width: 250,
             marginTop: 10,
         },
+        datePicker: {
+            width: 320,
+            margin: 5,
+            color: '#af81e1',
+        }
     });
 
 
