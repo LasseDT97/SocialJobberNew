@@ -21,7 +21,7 @@ const JobScreen = ({ navigation , route}) => {
         try {
             const docRef = await deleteDoc(db.collection(db).collection('jobs').doc(route.params.id));
         } catch (e) {
-            console.log('Error deleting: ', e);
+            //console.log('Error deleting: ', e);
         }
         navigation.replace('Home');
     };
@@ -50,8 +50,3 @@ const styles = StyleSheet.create({
         margin: 15,
     }
 })
-
-
-/*
-<Button style={{margin: 15}}title="Søg job" onPress={deleteJob}> Søg job </Button>
- */
