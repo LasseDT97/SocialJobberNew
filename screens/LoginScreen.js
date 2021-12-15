@@ -1,42 +1,31 @@
-import React, {useEffect, useLayoutEffect, useState} from 'react';
-import {KeyboardAvoidingView, StatusBar, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import { Button, Input, } from "react-native-elements";
+import React, {useEffect, useState} from 'react';
+import {KeyboardAvoidingView, StatusBar, StyleSheet, View} from "react-native";
+import { Button, Input, Image } from "react-native-elements";
 import { auth } from "../firebase";
-import {getAuth, signInWithEmailAndPassword} from "firebase/auth";
 
-const LoginScreenSocialJobber = ({ navigation }) => {
+const LoginScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            title: "Velkommen SocialJobber",
-            headerBackTitle: "Tilbage",
-        })
-    }, [navigation])
-
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((authUser) => {
-            // console.log(authUser)
-            if (authUser) {
-                navigation.replace("Home");
+            if(authUser) {
+                navigation.replace('Home');
             }
         });
 
         return unsubscribe;
     }, []);
 
-    const signIn = () => {
-        getAuth();
-        signInWithEmailAndPassword(auth, email, password).catch(error => alert(error));
-    }
+    const signIn = () => {}
 
     return (
         <KeyboardAvoidingView behavior="padding" style={styles.container}>
             <StatusBar style='light'/>
-            <Text style={styles.socialJobberText} >
-                Velkommen til SocialJobber. Vi håber du kan finde et job!
-            </Text>
+            <Image
+                source={{uri: "https://ibb.co/Thcc1pr"}}
+                style={{width: 200, height: 200}}
+            />
             <View style={styles.inputContainer}>
                 <Input
                     placeholder="Email"
@@ -51,19 +40,16 @@ const LoginScreenSocialJobber = ({ navigation }) => {
                     type="password"
                     value={password}
                     onChangeText={(text) => setPassword(text)}
-                    onSubmitEditing={signIn}
                 />
             </View>
-            <TouchableOpacity>
             <Button containerStyle={styles.button} onPress={signIn} title="Login" />
-            <Button onPress={() => navigation.navigate('Opret bruger')} containerStyle={styles.button} type="outline" title="Opret bruger" />
-            </TouchableOpacity>
-                <View style={{height: 100}} />
+            <Button onPress={() => navigation.navigate('Register')} containerStyle={styles.button} type="outline" title="Register" />
+            <View style={{height: 100}} />
         </KeyboardAvoidingView>
     )
 }
 
-export default LoginScreenSocialJobber
+export default LoginScreen
 
 const styles = StyleSheet.create({
     container: {
@@ -75,13 +61,6 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         width: 300,
-    },
-    socialJobberText: {
-        textAlign: "center",
-        padding: 10,
-        backgroundColor: "white",
-        lineHeight: 23,
-        width: 350,
     },
     button: {
         width: 250,

@@ -1,6 +1,6 @@
 import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {KeyboardAvoidingView, StatusBar, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import { Button, Input, Image } from "react-native-elements";
+import { Button, Input, } from "react-native-elements";
 import { auth } from "../firebase";
 import {getAuth, signInWithEmailAndPassword} from "firebase/auth";
 

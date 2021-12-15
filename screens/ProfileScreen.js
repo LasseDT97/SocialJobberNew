@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
-import {StyleSheet, View, TouchableOpacity, KeyboardAvoidingView, Image} from "react-native";
-import { getAuth, onAuthStateChanged, signOut, updateProfile, deleteUser } from "firebase/auth";
+import {StyleSheet, ScrollView, View, TouchableOpacity, KeyboardAvoidingView } from "react-native";
+import { getAuth, onAuthStateChanged, signOut, updateProfile, } from "firebase/auth";
 import { Avatar, Button, Input } from "react-native-elements";
 
 const ProfileScreen = ({navigation}) => {
@@ -11,7 +11,7 @@ const ProfileScreen = ({navigation}) => {
     onAuthStateChanged(auth, (user) => {
         if (user) {
             const uid = user.uid;
-            console.log(uid);
+            //console.log(uid);
         } else {
             console.log('User is signed out')
         }
@@ -43,10 +43,10 @@ const ProfileScreen = ({navigation}) => {
 
 
     return (
-        <View>
-            <KeyboardAvoidingView behavior="padding" style={styles.container}>
-                <Avatar size="xlarge" rounded source={{ uri: auth?.currentUser?.photoURL || "https://i.ibb.co/zfssFjN/SOCIALJOBBERlogo.png"}} />
-                <View style={{height: 100}}/>
+        <ScrollView style={{height: "100%", backgroundColor: "white"}}>
+            <KeyboardAvoidingView behaviour="padding" style={styles.container}>
+                <Avatar size="large" rounded source={{ uri: auth?.currentUser?.photoURL || "https://i.ibb.co/zfssFjN/SOCIALJOBBERlogo.png"}} />
+                <View style={{height: 10}}/>
                 <Input
                     style={styles.inputContainer}
                     placeholder={user.displayName}
@@ -78,7 +78,7 @@ const ProfileScreen = ({navigation}) => {
                     onChangeText={(text) => setImageUrl(text)}
                     onSubmitEditing={updateUser}
                 />
-                <View style={{height: 150}}/>
+
                 <TouchableOpacity>
                     <Button containerStyle={styles.button} onPress={() => navigation.navigate('Home')} title="Opdater Profil" />
                 </TouchableOpacity>
@@ -86,7 +86,7 @@ const ProfileScreen = ({navigation}) => {
                     <Button containerStyle={styles.button} onPress={signOutUser} type="outline" title="Log ud" />
                 </TouchableOpacity>
             </KeyboardAvoidingView>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -94,11 +94,9 @@ export default ProfileScreen;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         alignItems: "center",
-        justifyContent: "center",
-        padding: 10,
         backgroundColor: "white",
+        height: "100%",
     },
     inputContainer: {
         width: 300,

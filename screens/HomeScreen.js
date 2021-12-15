@@ -1,15 +1,13 @@
-import React, { useEffect, useLayoutEffect, useState, useCallback } from 'react';
+import React, { useEffect, useLayoutEffect, useState, } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View, RefreshControl } from "react-native";
-import CustomListItem from "../components/CustomListItem";
 import CustomCard from "../components/CustomCard";
-import {Avatar, Card} from "react-native-elements";
 import { collection, db, getDocs } from '../firebase';
 import AntDesign from "react-native-vector-icons/AntDesign";
-import EvilIcons from "react-native-vector-icons/EvilIcons";
-import { getAuth, signOut } from "firebase/auth";
+import Fontisto from "react-native-vector-icons/FontAwesome";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import { AsyncStorage } from "@react-native-async-storage/async-storage";
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
     const [jobs, setJobs] = useState([]);
     const [refreshing, setRefreshing] = React.useState(false);
 
@@ -22,7 +20,7 @@ const HomeScreen = ({navigation}) => {
         wait(1000).then(() => setRefreshing(false));
     }, []);
 
-    const auth = getAuth();
+    //const auth = getAuth();
 
     useEffect(async () => {
             const querySnapshot = await getDocs(collection(db, "jobs"));
@@ -41,19 +39,18 @@ const HomeScreen = ({navigation}) => {
             headerStyle: { backgroundColor: "white" },
             headerTitleStyle: { color: "black" },
             headerTintColor: "black",
-            headerLeft: () => (
-                <View style={{marginLeft: 20}}>
-                </View>
-            ),
             headerRight: () => (
                 <View
                     style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
-                    width: 80,
+                    width: 110,
                     marginRight: 20,
                 }}
                 >
+                    <TouchableOpacity activeOpacity={0.5}>
+                        <Ionicons name="map-outline" size={27} onPress={() => navigation.navigate('Map')} />
+                    </TouchableOpacity>
                     <TouchableOpacity activeOpacity={0.5}>
                         <AntDesign name="plus" size={28} onPress={() => navigation.navigate('Tilføj job')} />
                     </TouchableOpacity>
@@ -67,16 +64,8 @@ const HomeScreen = ({navigation}) => {
         });
     }, [navigation])
 
-    const enterJob = (id, employer, title, desc, address, datetime, hours) => {
-        navigation.navigate("Job", {
-            id,
-            employer,
-            title,
-            desc,
-            address,
-            datetime,
-            hours,
-        });
+    const enterJob = (id, employer, title, desc, address, hours, date) => {
+        navigation.navigate("Job", { id, employer, title, desc, address, hours, date });
     };
 
     return (
@@ -88,20 +77,19 @@ const HomeScreen = ({navigation}) => {
                         refreshing={refreshing}
                         onRefresh={onRefresh} />
                 }>
-                {jobs.map(({id, data: { employer, title, desc, address, datetime, hours}}) => (
+                {jobs.map(({id, data: { employer, title, desc, address, hours, date}}) => (
                     <CustomCard
-                        key={id}
                         id={id}
+                        key={id}
                         employer={employer}
                         title={title}
                         desc={desc}
                         address={address}
-                        datetime={datetime}
                         hours={hours}
+                        date={date}
                         enterJob={enterJob}
                     />
                 ))}
-
             </ScrollView>
         </SafeAreaView>
     );
@@ -111,7 +99,7 @@ export default HomeScreen
 
 const styles = StyleSheet.create({
     container: {
-        height: "100%",
+
     },
     inputContainer: {
         width: 300,

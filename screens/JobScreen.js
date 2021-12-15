@@ -1,20 +1,25 @@
-import React, {useLayoutEffect} from 'react';
+import React from 'react';
 import { StyleSheet, Text, View } from "react-native";
-import {Button} from "react-native-elements";
-import {db, doc, collection, deleteDoc, getDocs, documentId, addDoc, getDoc} from "../firebase";
+import { Button } from "react-native-elements";
+import { db, deleteDoc, } from "../firebase";
 
 const JobScreen = ({ navigation , route}) => {
 
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            title: 'Tilbage til andre jobs',
-        })
-    }, [navigation])
+    /*function handleChange (e) {
+        e.persist();
 
+        setTimeout(() => {
+            console.log(e.target.value);
+        }, 10000000);
+    }
+
+    useEffect(() => {
+        return () => {}
+    });*/
 
     const deleteJob = async () => {
         try {
-            const docRef = await deleteDoc(doc(db, 'jobs', route.params.id))
+            const docRef = await deleteDoc(db.collection(db).collection('jobs').doc(route.params.id));
         } catch (e) {
             console.log('Error deleting: ', e);
         }
@@ -23,14 +28,13 @@ const JobScreen = ({ navigation , route}) => {
 
     return (
         <View style={styles.container}>
-            <Text>{route.params.id}</Text>
-            <Text>{route.params.employer}</Text>
-            <Text>{route.params.title}</Text>
-            <Text>{route.params.desc}</Text>
-            <Text>{route.params.address}</Text>
-            <Text>{route.params.datetime}</Text>
-            <Text>{route.params.hours}</Text>
-            <Button title="Søg job" onPress={deleteJob}> Søg job </Button>
+            <Text style={styles.jobText}> Arbejdsgiver: {route.params.employer} </Text>
+            <Text style={styles.jobText}> Titel: {route.params.title} </Text>
+            <Text style={styles.jobText}> Beskrivelse: {route.params.desc} </Text>
+            <Text style={styles.jobText}> Adresse: {route.params.address} </Text>
+            <Text style={styles.jobText}> Arbejdstimer: {route.params.hours} </Text>
+            <Text style={styles.jobText}> Løn: {(route.params.hours * 146.34).toFixed(2)} kr. </Text>
+            <Button style={{margin: 15}}title="Søg job" onPress={deleteJob}> Søg job </Button>
         </View>
     )
 }
@@ -40,5 +44,14 @@ export default JobScreen
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    jobText: {
+        fontSize: 20,
+        margin: 15,
     }
 })
+
+
+/*
+<Button style={{margin: 15}}title="Søg job" onPress={deleteJob}> Søg job </Button>
+ */

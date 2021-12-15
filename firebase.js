@@ -1,4 +1,3 @@
-// Video fra 01:18:00 ca. Men husk at firebase er gået til V9 og ikke længere V8
 import { getAuth } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs, addDoc, deleteDoc, getDoc } from 'firebase/firestore/lite';

@@ -31,7 +31,7 @@ const RegisterScreen = ({ navigation }) => {
             .then(updateProfile(auth.currentUser, {
                 displayName: name,
                 photoURL: imageUrl,
-            }).catch((error)))
+            }))
     }
 
     return (

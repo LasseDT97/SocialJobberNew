@@ -16,6 +16,12 @@ const WelcomeScreen = ({ navigation }) => {
         return unsubscribe;
     }, []);
 
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerShown: false
+        })
+    }, [navigation])
+
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar style='light'/>
