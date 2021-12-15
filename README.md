@@ -6,6 +6,7 @@ man ikke skal gøre det undervejs i profiloprettelsen.
   Registreringen skal så navigate til en Profil side. Her skal
   man kunne klikke på editer bruger, docs her: https://firebase.google.com/docs/auth/web/manage-users#web-version-9
   og på den måde tildele displayName osv.
+  
 ###Til virksomhedsprofil
 - Vi skal have implementeret måden at oprette flere 
 CustomListItems. Disse skal kunne laves fra brugeren, så vi
@@ -13,6 +14,7 @@ på den måde holder SocialJobber og Virksomheds-track adskilt.
 
 - Vi skal have implementeret en måde at have det som kortvisning
 også. Eventuelt en headerRight der kan navigere til kort.
+
  ###Overvejelser:
 - Overvej at duplikere det hele og lave 2 af hver screen. 
 Det gør det bare nemmere at styre retningen, da der er små
